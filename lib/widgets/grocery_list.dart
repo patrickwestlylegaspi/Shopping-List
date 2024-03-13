@@ -34,6 +34,12 @@ class _GroceryListState extends State<GroceryList> {
         _error = 'Failed to Fetch data. Please Try again later';
       });
     }
+
+    if (response.body == 'null') {
+      setState(() {
+        _isLoading = false;
+      });
+    }
     final Map<String, dynamic> listData = json.decode(response.body);
     final List<GroceryItem> loadedItems = [];
     for (final item in listData.entries) {
@@ -73,33 +79,12 @@ class _GroceryListState extends State<GroceryList> {
 
   void _removeItem(GroceryItem newItem) async {
     final groceryIndex = _groceryItems.indexOf(newItem);
-    // ScaffoldMessenger.of(context).clearSnackBars();
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(
-    //     duration: const Duration(
-    //       seconds: 5,
-    //     ),
-    //     action: SnackBarAction(
-    //         label: 'Undo',
-    //         onPressed: () {
-    //           setState(
-    //             () {
-    //               _groceryItems.insert(groceryIndex, newItem);
-    //
-    //             },
-    //           );
-    //         }),
-    //     content: const Text('Item Remove'),
-    //   ),
-    // );
 
     final url = Uri.https(
         'flutter-prep-ef2c2-default-rtdb.asia-southeast1.firebasedatabase.app',
         'Shopping-list/${newItem.id}.json');
 
     final response = await http.delete(url);
-
-
 
     if (response.statusCode >= 400) {
       setState(() {
@@ -129,15 +114,6 @@ class _GroceryListState extends State<GroceryList> {
               width: 100,
               height: 40,
               color: _groceryItems[index].category.color,
-              // child: Text(
-              //   maxLines: 2,
-              //   '\$${_groceryItems[index].price.toStringAsFixed(2)}',
-              //   style: const TextStyle(
-              //       color: Colors.black,
-              //       fontSize: 24,
-              //       fontWeight: FontWeight.bold),
-              //   textAlign: TextAlign.center,
-              // ),
             ),
             trailing:
                 Text('Quantity ${_groceryItems[index].quantity.toString()}'),

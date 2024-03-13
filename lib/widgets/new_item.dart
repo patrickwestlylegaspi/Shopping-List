@@ -40,12 +40,9 @@ class _NewItemState extends State<NewItem> {
             'name': _enteredName,
             'quantity': _enteredQuantity,
             'category': _selectedCategory.title,
-            //'price': _itemPrice,
           },
         ),
       );
-      print(response.body);
-      print(response.statusCode);
       final Map<String, dynamic> resData = json.decode(response.body);
       if (!context.mounted) {
         return;
@@ -101,26 +98,6 @@ class _NewItemState extends State<NewItem> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  // Expanded(
-                  //   child: TextFormField(
-                  //       keyboardType: TextInputType.number,
-                  //       decoration: const InputDecoration(
-                  //         label: Text('Price'),
-                  //       ),
-                  //       initialValue: '1',
-                  //       validator: (value) {
-                  //         if (value == null ||
-                  //             value.isEmpty ||
-                  //             int.tryParse(value) == null ||
-                  //             int.tryParse(value)! <= 0) {
-                  //           return 'Must be a valid positive number';
-                  //         }
-                  //         return null;
-                  //       },
-                  //       onSaved: (value) {
-                  //         _itemPrice = int.parse(value!) as double;
-                  //       }),
-                  // ),
                   const SizedBox(
                     width: 8,
                   ),
