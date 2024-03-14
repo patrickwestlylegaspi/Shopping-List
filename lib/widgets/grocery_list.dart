@@ -52,7 +52,6 @@ class _GroceryListState extends State<GroceryList> {
           id: item.key,
           name: item.value['name'],
           quantity: item.value['quantity'],
-          // price: item.value['price'],
           category: category,
         ),
       );
